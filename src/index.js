@@ -4,6 +4,12 @@ const DEFAULT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 export default {
   async fetch(request, env) {
 
+    console.log(
+      "REQUEST",
+      request.method,
+      new URL(request.url).pathname
+    );
+
     if (request.method === "OPTIONS") {
       return respond(null, 204);
     }
@@ -78,6 +84,9 @@ export default {
     }
 
     try {
+
+      console.log("START CHAT", model);
+
       const aiResp = await env.AI.run(model, {
         messages: [
           { role: "system", content: system_prompt },
@@ -109,6 +118,9 @@ export default {
       },200);
 
     } catch (e) {
+
+      console.log("CHAT ERROR", String(e));
+
       return respond({
         answer: "I could not verify a grounded answer from the authorized documents.",
         grounded: false
