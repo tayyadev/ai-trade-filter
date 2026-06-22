@@ -20,12 +20,45 @@ export default {
       }
     }
 
+    const url = new URL(request.url);
+
     let body;
 
     try {
       body = await request.json();
     } catch {
       return respond({ error: "Invalid JSON body" }, 400);
+    }
+
+    // ---------- Embeddings endpoint ----------
+    if (url.pathname === "/embeddings") {
+
+      const model =
+        body.model ||
+        "@cf/baai/bge-base-en-v1.5";
+
+      try {
+
+        const result = await env.AI.run(model, {
+          text: [body.input]
+        });
+
+        return respond({
+          data: [
+            {
+              embedding: result.data[0]
+            }
+          ]
+        }, 200);
+
+      } catch (e) {
+
+        return respond({
+          error: String(e)
+        }, 500);
+
+      }
+
     }
 
     const model = body.model || env.AI_MODEL || DEFAULT_MODEL;
