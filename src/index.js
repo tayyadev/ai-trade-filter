@@ -32,26 +32,31 @@ export default {
 
     // ---------- Embeddings endpoint ----------
     if (url.pathname === "/embeddings") {
-
       const model =
         body.model ||
-        "@cf/baai/bge-base-en-v1.5";
+        "@cf/baai/bge-small-en-v1.5";
 
       try {
 
-        const result = await env.AI.run(model, {
-          text: [body.input]
-        });
+        const result = await env.AI.run(
+          model,
+          {
+            text: body.input
+          }
+        );
 
         console.log("EMBED RESULT", JSON.stringify(result));
-        
-        return respond({
-          data: [
-            {
-              embedding: result.data[0]
-            }
-          ]
-        }, 200);
+
+        return respond(
+          {
+            data: [
+              {
+                embedding: result.data
+              }
+            ]
+          },
+          200
+        );
 
       } catch (e) {
 
