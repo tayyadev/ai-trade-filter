@@ -1,0 +1,6 @@
+name="ktns-ai-document-assistant"
+main="src/index.js"
+compatibility_date="2025-06-01"
+
+[ai]
+binding="AI"
