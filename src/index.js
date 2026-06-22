@@ -94,7 +94,7 @@ export default {
         ],
         response_format: { type: "json_object" },
         temperature: 0,
-        max_tokens: 2048
+        max_tokens: 512
       });
 
       let raw = aiResp?.response ?? aiResp;
