@@ -43,6 +43,8 @@ export default {
           text: [body.input]
         });
 
+        console.log("EMBED RESULT", JSON.stringify(result));
+        
         return respond({
           data: [
             {
