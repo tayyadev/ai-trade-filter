@@ -4,3 +4,7 @@ compatibility_date="2025-06-01"
 
 [ai]
 binding="AI"
+
+[observability.logs]
+enabled = true
+invocation_logs = true
