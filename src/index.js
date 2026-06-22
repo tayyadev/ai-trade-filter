@@ -33,7 +33,6 @@ export default {
     // ---------- Embeddings endpoint ----------
     if (url.pathname === "/embeddings") {
       const model =
-        body.model ||
         "@cf/baai/bge-small-en-v1.5";
 
       try {
@@ -41,7 +40,7 @@ export default {
         const result = await env.AI.run(
           model,
           {
-            text: body.input
+            text: [body.input]
           }
         );
 
@@ -51,7 +50,7 @@ export default {
           {
             data: [
               {
-                embedding: result.data
+                embedding: result.data[0]
               }
             ]
           },
@@ -59,6 +58,8 @@ export default {
         );
 
       } catch (e) {
+
+        console.log("EMBED ERROR", String(e));
 
         return respond({
           error: String(e)
