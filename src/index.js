@@ -114,8 +114,9 @@ export default {
 
       return respond({
         answer: raw.answer || "",
-        grounded: !!raw.grounded
-      },200);
+        grounded: !!raw.grounded,
+        source_index: typeof raw.source_index === "number" ? raw.source_index : 0
+      }, 200);
 
     } catch (e) {
 
